@@ -23,7 +23,15 @@ while running:
             running = False
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_RETURN:
-                game_start = True
+                game_start = not game_start
+        
+        if event.type == pygame.MOUSEBUTTONDOWN and not game_start:
+            if event.button == 1: # 左クリック
+                x, y = event.pos
+                col = x // Cell.size
+                row = y // Cell.size
+                if 0 <= row < len(MAP_LAYOUT) and 0 <= col < len(MAP_LAYOUT[0]):
+                    MAP_LAYOUT[row][col] = 1
 
     if not game_start:
         pass
@@ -59,7 +67,7 @@ while running:
         MAP_LAYOUT = copy.deepcopy(NEXT_LAYOUT)
 
     # 画面を更新して変更を反映
-    screen.fill((113,115,117)) # Clear screen every frame
+    screen.fill((113,115,117))
     all_sprites.empty()
 
     # グループ内の全てのセルを描画する
@@ -77,7 +85,7 @@ while running:
     pygame.display.flip()
 
     # フレームレートの制御
-    clock.tick(30)
+    clock.tick(120)
 
 # ゲーム終了処理
 pygame.quit()

@@ -15,10 +15,6 @@ ROWS = 100
 COLS = 100
 MAP_LAYOUT = [[0 for _ in range(COLS)] for _ in range(ROWS)]
 NEXT_LAYOUT = [[0 for _ in range(COLS)] for _ in range(ROWS)]
-MAP_LAYOUT[50][20] = 1
-MAP_LAYOUT[51][20] = 1
-MAP_LAYOUT[51][21] = 1
-MAP_LAYOUT[51][19] = 1
 NEIBOR_OFFSETS = [
     (-1,0), #上
     (1,0),  #下
