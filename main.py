@@ -22,17 +22,30 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
+            #エンターキーでゲームを開始
             if event.key == pygame.K_RETURN:
                 game_start = not game_start
-        
+            #スペースキーでマップをリセット
+            if event.key == pygame.K_SPACE:
+                for row_idx, row_data in enumerate(MAP_LAYOUT):
+                    for col_idx, cell_type in enumerate(row_data):
+                        MAP_LAYOUT[row_idx][col_idx] = 0
+                        
         if event.type == pygame.MOUSEBUTTONDOWN and not game_start:
-            if event.button == 1: # 左クリック
+            #左クリックでセルを立てる
+            if event.button == 1: 
                 x, y = event.pos
                 col = x // Cell.size
                 row = y // Cell.size
                 if 0 <= row < len(MAP_LAYOUT) and 0 <= col < len(MAP_LAYOUT[0]):
                     MAP_LAYOUT[row][col] = 1
-
+            #右クリックでセルを消す
+            if event.button == 3: 
+                x, y = event.pos
+                col = x // Cell.size
+                row = y // Cell.size
+                if 0 <= row < len(MAP_LAYOUT) and 0 <= col < len(MAP_LAYOUT[0]):
+                    MAP_LAYOUT[row][col] = 0
     if not game_start:
         pass
     else:
