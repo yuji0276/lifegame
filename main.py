@@ -7,7 +7,6 @@ pygame.init()
 
 all_sprites = pygame.sprite.Group()
 
-# マップデータの読み込みとインスタンス化
 # 背景を灰色で塗りつぶす
 screen.fill((113,115,117))
 # グループ内の全てのセルを描画する
@@ -25,6 +24,7 @@ while running:
         pygame.display.set_caption("Game of Life(Playing)")
     else:
         pygame.display.set_caption("Game of Life (Ready to start)")
+    
     # イベント処理
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -39,7 +39,9 @@ while running:
                     for col_idx, cell_type in enumerate(row_data):
                         MAP_LAYOUT[row_idx][col_idx] = 0
 
-        if event.type == pygame.MOUSEBUTTONDOWN and not game_start:
+    if not game_start:
+        #マウスのクリックを検知
+        if event.type == pygame.MOUSEBUTTONDOWN:
             #左クリックでセルを立てる
             if event.button == 1: 
                 x, y = event.pos
@@ -54,9 +56,7 @@ while running:
                 row = y // Cell.size
                 if 0 <= row < len(MAP_LAYOUT) and 0 <= col < len(MAP_LAYOUT[0]):
                     MAP_LAYOUT[row][col] = 0
-    if not game_start:
-        pass
-    else:
+    if game_start:
         # 世代交代
         for row_idx, row_data in enumerate(MAP_LAYOUT):
             for col_idx, cell_type in enumerate(row_data):
