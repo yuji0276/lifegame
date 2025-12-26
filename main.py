@@ -2,6 +2,9 @@ import pygame
 from models import Cell
 from consts import screen, running, clock, SCREEN_WIDTH, SCREEN_HEIGHT, MAP_LAYOUT, NEIBOR_OFFSETS, NEXT_LAYOUT
 import copy
+pygame.init()
+
+
 all_sprites = pygame.sprite.Group()
 
 # マップデータの読み込みとインスタンス化
@@ -17,6 +20,11 @@ all_sprites.draw(screen)
 game_start = False
 # ゲームループ
 while running:
+    # ゲームの状態を表示
+    if game_start:
+        pygame.display.set_caption("Game of Life(Playing)")
+    else:
+        pygame.display.set_caption("Game of Life (Ready to start)")
     # イベント処理
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -30,7 +38,7 @@ while running:
                 for row_idx, row_data in enumerate(MAP_LAYOUT):
                     for col_idx, cell_type in enumerate(row_data):
                         MAP_LAYOUT[row_idx][col_idx] = 0
-                        
+
         if event.type == pygame.MOUSEBUTTONDOWN and not game_start:
             #左クリックでセルを立てる
             if event.button == 1: 
